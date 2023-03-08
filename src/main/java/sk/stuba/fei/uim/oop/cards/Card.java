@@ -1,5 +1,5 @@
 package sk.stuba.fei.uim.oop.cards;
 
-public class Card {
+public abstract class Card {    //abstract lebo jej pristup musi bzt dedeny
     
 }
