@@ -1,5 +1,16 @@
 package sk.stuba.fei.uim.oop.cards;
 
-public abstract class Card {    //abstract lebo jej pristup musi bzt dedeny
+import sk.stuba.fei.uim.oop.player.Player;
+
+public abstract class Card {
+
+    protected String name;
+
+    public String getName(){
+        return this.name;
+    }
+
+    public abstract void use(Player p);
+
     
 }
