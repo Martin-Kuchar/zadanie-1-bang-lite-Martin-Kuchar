@@ -36,36 +36,63 @@ public class Bang {
     private void startGame(){
         System.out.println("Game has started");
         
-        int activePlayer = 0;   //index aktivneho hraca
-        String playerIn;        //input hraca
-
-        //this.players[0].playCard(new BangCard(), this.players[1]);
-
-        ArrayList<Card> playerHand = this.players[0].getCards();
-        playerHand.forEach((c) -> System.out.println(c.getName()));
+        int activePlayer = -1;   //index aktivneho hraca
+        int playerIn = -1;        //input hraca
+        ArrayList<Card> playerHand = new ArrayList<Card>();
+        
+        /*playerHand.forEach((c) -> System.out.println(c.getName()));
 
         int pc = ZKlavesnice.readInt("ktoru kartu");
 
-        players[0].playCard(playerHand.get(pc), players[1]);
+        players[0].playCard(playerHand.get(pc), players[1], pack);
         
 
-        players[0].removeCard(playerHand.get(pc));
+        players[0].removeCard(playerHand.get(pc), pack);
         players[1].getCards().forEach((c) -> System.out.println(c.getName()));
         System.out.println(players[1].getLives());
         players[1].getCards().forEach((c) -> System.out.println(c.getName()));
+*/
+        while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
+            activePlayer = incrementPlyer(activePlayer);
+            playerHand.clear();
+            playerHand = players[activePlayer].getCards();
 
-        /*while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
-
+            //vykonanie efektovich kariet
+            if(players[activePlayer].hasDynamite()) {
+                players[activePlayer].detonateDynamite(players[incrementPlyer(activePlayer)]);
+            }
+            if(players[activePlayer].isInJail()) {
+                players[activePlayer].escapeJail();
+                continue;
+            }
             players[activePlayer].addCard(pack);    //tah dvoch kariet
             players[activePlayer].addCard(pack);
-            
 
 
-            activePlayer++; //inkrement aktivneho hraca a osetrenie mrtvich hracov
-            if(activePlayer > getNumberOfAlivePlayers()){
-                activePlayer = 0;
+            System.out.println("Player " + players[activePlayer].getName() + " is on turn!");
+
+            while(playerIn != 0) {
+                System.out.println("Tvoje karty na ruke su: ");
+                playerHand.forEach((c) -> System.out.print(c.getName() + " "));
+                System.out.println();
+                playerIn = ZKlavesnice.readInt("Zadaj cislo karty ktoru chces zahrat alebo 0 pre ukoncenie tahu: ");
+                if(playerIn < -1 || playerIn > playerHand.size()) {
+                    playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
+                }
             }
-        }*/
+            players[activePlayer].setCards(playerHand);
+            playerIn = -1;
+
+
+        }
+    }
+
+    private int incrementPlyer(int i) {
+        i++; //inkrement aktivneho hraca a osetrenie mrtvich hracov
+            if(i >= getNumberOfAlivePlayers()){
+                i = 0;
+            }
+        return i;
     }
 
     private int getNumberOfAlivePlayers(){

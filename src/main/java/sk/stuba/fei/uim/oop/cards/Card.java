@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
+import sk.stuba.fei.uim.oop.pack.Pack;
 
 public abstract class Card {
 
@@ -10,7 +11,7 @@ public abstract class Card {
         return this.name;
     }
 
-    public abstract void use(Player p);
+    public abstract void use(Player p, Pack d);
 
     
 }
