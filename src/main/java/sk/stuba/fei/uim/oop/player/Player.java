@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import sk.stuba.fei.uim.oop.cards.Card;
+import sk.stuba.fei.uim.oop.cards.Vedla;
 import sk.stuba.fei.uim.oop.pack.Pack;
 
 public class Player {
@@ -113,9 +114,7 @@ public class Player {
     }
 
     public ArrayList<Card> getCards() {
-        ArrayList<Card> cards = new ArrayList<Card>(this.cards);
-        this.cards.clear();
-        return cards;
+        return this.cards;
     }
 
     public void setCards(ArrayList<Card> c) {
@@ -123,7 +122,13 @@ public class Player {
     }
 
     public void playCard(Card c, Player p, Pack d) {
-        c.use(p, d);
+        if(c.getClass() == Vedla.class) {
+            System.out.println("card not playable");
+        }
+        else{
+            c.use(p, d);
+            this.removeCard(c, d);
+        }
     }
     
 

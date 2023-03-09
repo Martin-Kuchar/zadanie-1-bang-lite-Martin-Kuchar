@@ -14,6 +14,7 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 public class Bang {
     private final Player[] players;
     private Pack pack;
+    private Player activePlayer;
 
     public Bang(){
 
@@ -36,9 +37,10 @@ public class Bang {
     private void startGame(){
         System.out.println("Game has started");
         
-        int activePlayer = -1;   //index aktivneho hraca
+        int activeCount = -1;   //index aktivneho hraca
         int playerIn = -1;        //input hraca
         ArrayList<Card> playerHand = new ArrayList<Card>();
+        int choosenCard;
         
         /*playerHand.forEach((c) -> System.out.println(c.getName()));
 
@@ -53,36 +55,37 @@ public class Bang {
         players[1].getCards().forEach((c) -> System.out.println(c.getName()));
 */
         while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
-            activePlayer = incrementPlyer(activePlayer);
-            playerHand.clear();
-            playerHand = players[activePlayer].getCards();
+            activeCount = incrementPlyer(activeCount);
+            activePlayer = players[activeCount];
+            playerHand = activePlayer.getCards();
 
             //vykonanie efektovich kariet
-            if(players[activePlayer].hasDynamite()) {
-                players[activePlayer].detonateDynamite(players[incrementPlyer(activePlayer)]);
+            if(activePlayer.hasDynamite()) {
+                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)]);
             }
-            if(players[activePlayer].isInJail()) {
-                players[activePlayer].escapeJail();
+            if(activePlayer.isInJail()) {
+                activePlayer.escapeJail();
                 continue;
             }
-            players[activePlayer].addCard(pack);    //tah dvoch kariet
-            players[activePlayer].addCard(pack);
+            activePlayer.addCard(pack);    //tah dvoch kariet
+            activePlayer.addCard(pack);
 
 
-            System.out.println("Player " + players[activePlayer].getName() + " is on turn!");
+            System.out.println("Player " + activePlayer.getName() + " is on turn!");
 
             while(playerIn != 0) {
                 System.out.println("Tvoje karty na ruke su: ");
                 playerHand.forEach((c) -> System.out.print(c.getName() + " "));
                 System.out.println();
-                playerIn = ZKlavesnice.readInt("Zadaj cislo karty ktoru chces zahrat alebo 0 pre ukoncenie tahu: ");
-                if(playerIn < -1 || playerIn > playerHand.size()) {
-                    playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
+
+                choosenCard = chooseCard(playerHand);
+                if(choosenCard != 0){
+                    playCard(playerHand.get(choosenCard));
+                    activePlayer.playCard(playerHand.get(playerIn-1), players[incrementPlyer(activeCount)], pack);
                 }
             }
-            players[activePlayer].setCards(playerHand);
+            activePlayer.setCards(playerHand);
             playerIn = -1;
-
 
         }
     }
@@ -103,6 +106,18 @@ public class Bang {
             }
         }
         return count;
+    }
+
+    private int chooseCard(ArrayList<Card> c){
+        int playerIn = ZKlavesnice.readInt("Zadaj cislo karty ktoru chces zahrat alebo 0 pre ukoncenie tahu: ");
+        if(playerIn < -1 || playerIn > c.size()) {
+            playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
+        }
+        return playerIn;
+    }
+
+    private void playCard(Card c) {
+        
     }
     
 }
