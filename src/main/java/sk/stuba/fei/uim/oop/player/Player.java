@@ -21,7 +21,7 @@ public class Player {
 
         this.cards = new ArrayList<Card>();
         for(int i = 0; i < 4; i++){
-            cards.add(addCard(p));
+            addCard(p);
         }
         System.out.println(this.cards.get(0).getName());
     }
@@ -38,16 +38,46 @@ public class Player {
         this.lives += lives;
     }
 
+    public void removeLives(int lives){
+        this.lives -= lives;
+    }
+
     public void toggleActive() {
         this.isOnTurn ^= true;
     }
 
-    public Card addCard(Pack p) {
-        return p.drawCard();
+    public void addCard(Pack p) {
+        this.cards.add( p.drawCard());
     }
 
     public Card removeCard(Card c) {
         return cards.remove(cards.indexOf(c));
+    }
+
+    public boolean hasCard(Class<?> c) {
+        for(Card i : cards){
+            if(i.getClass() == c) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Card getCardByType(Class<?> c) {
+        for(Card i : cards){
+            if(i.getClass() == c) {
+                return i;
+            }
+        }
+        return this.cards.get(-1);
+    }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+
+    public void playCard(Card c, Player p) {
+        c.use(p);
     }
     
 }

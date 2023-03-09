@@ -32,6 +32,12 @@ public class Pack {
         for(int i = 0; i < 2; i++){
             this.cards.add(new Indiani());
         }
+        for(int i = 0; i < 30; i++){
+            this.cards.add(new BangCard());
+        }
+        for(int i = 0; i < 15; i++){
+            this.cards.add(new Vedla());
+        }
 
         shuffleDeck();
     }

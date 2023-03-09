@@ -1,6 +1,12 @@
 package sk.stuba.fei.uim.oop.bang;
 
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+
+import javax.sound.sampled.SourceDataLine;
+
+import sk.stuba.fei.uim.oop.cards.*;
 import sk.stuba.fei.uim.oop.pack.Pack;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
@@ -33,7 +39,22 @@ public class Bang {
         int activePlayer = 0;   //index aktivneho hraca
         String playerIn;        //input hraca
 
-        while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
+        //this.players[0].playCard(new BangCard(), this.players[1]);
+
+        ArrayList<Card> playerHand = this.players[0].getCards();
+        playerHand.forEach((c) -> System.out.println(c.getName()));
+
+        int pc = ZKlavesnice.readInt("ktoru kartu");
+
+        players[0].playCard(playerHand.get(pc), players[1]);
+        
+
+        players[0].removeCard(playerHand.get(pc));
+        players[1].getCards().forEach((c) -> System.out.println(c.getName()));
+        System.out.println(players[1].getLives());
+        players[1].getCards().forEach((c) -> System.out.println(c.getName()));
+
+        /*while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
 
             players[activePlayer].addCard(pack);    //tah dvoch kariet
             players[activePlayer].addCard(pack);
@@ -44,7 +65,7 @@ public class Bang {
             if(activePlayer > getNumberOfAlivePlayers()){
                 activePlayer = 0;
             }
-        }
+        }*/
     }
 
     private int getNumberOfAlivePlayers(){
