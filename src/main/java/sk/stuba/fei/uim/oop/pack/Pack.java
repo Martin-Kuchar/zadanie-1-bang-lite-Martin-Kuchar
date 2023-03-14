@@ -9,7 +9,6 @@ import sk.stuba.fei.uim.oop.cards.*;
 public class Pack {
 
     private ArrayList<Card> cards;
-    private ArrayList<Card> usedCards;
 
     public Pack() {
         cards = new ArrayList<Card>();  //inicializacia pola kariet

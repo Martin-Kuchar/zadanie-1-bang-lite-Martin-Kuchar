@@ -5,6 +5,10 @@ import sk.stuba.fei.uim.oop.player.Player;
 
 public class Indiani extends Card {
 
+    public Indiani() {
+        this.name = "Indiani";
+    }
+
     @Override
     public void use(Player p, Pack d) {
         if(p.hasCard(BangCard.class) == true) {
@@ -13,7 +17,5 @@ public class Indiani extends Card {
         else{
             p.removeLives(1);
         }
-
     }
-    
 }

@@ -5,6 +5,10 @@ import sk.stuba.fei.uim.oop.player.Player;
 
 public class Barrel extends Card {
 
+    public Barrel() {
+        this.name = "Barrel";
+    }
+
     @Override
     public void use(Player p, Pack d) {
         
