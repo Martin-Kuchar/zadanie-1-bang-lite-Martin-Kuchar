@@ -10,12 +10,16 @@ public class BangCard extends Card{
     }
 
     @Override
-    public void use(Player p, Pack d) {
-        if(p.hasCard(Vedla.class) == true) {
-            p.getCardByType(Vedla.class).use(p, d);;
+    public void use(Player p, Pack d, Player players[]) {
+        
+        Player target = choosePlayer(p, players);
+        Card v = target.hasVedla();
+        if(v != null) {
+            target.removeCard(v, d);
         }
         else{
-            p.removeLives(1);
+            target.removeLives(1);
         }
+        p.removeCard(v, d);
     }
 }

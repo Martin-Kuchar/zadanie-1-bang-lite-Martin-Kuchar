@@ -10,12 +10,14 @@ public class Indiani extends Card {
     }
 
     @Override
-    public void use(Player p, Pack d) {
-        if(p.hasCard(BangCard.class) == true) {
-            p.removeCard(p.getCardByType(BangCard.class), d);
+    public void use(Player p, Pack d, Player players[]) {
+        Card b = p.hasBang();
+        if(b != null) {
+            p.removeCard(b, d);
         }
         else{
             p.removeLives(1);
         }
+        p.removeCard(this, d);
     }
 }

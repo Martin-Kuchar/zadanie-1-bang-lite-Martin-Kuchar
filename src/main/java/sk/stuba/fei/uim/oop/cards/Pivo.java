@@ -9,8 +9,9 @@ public class Pivo extends Card {
         this.name = "Pivo";
     }
     @Override
-    public void use(Player p, Pack d){
+    public void use(Player p, Pack d, Player players[]){
         System.out.println("You gain 1 life");
         p.addLives(1);
+        p.removeCard(this, d);
     }
 }

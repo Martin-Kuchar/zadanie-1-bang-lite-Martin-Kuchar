@@ -44,10 +44,10 @@ public class Bang {
 
             //vykonanie efektovich kariet
             if(activePlayer.hasDynamite()) {
-                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack);
+                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack, this.players);
             }
             if(activePlayer.isInJail()) {
-                activePlayer.escapeJail(pack, players[incrementPlyer(activeCount)]);
+                activePlayer.escapeJail(pack, players[incrementPlyer(activeCount)], this.players);
                 continue;
             }
             activePlayer.addCard(pack);    //tah dvoch kariet
@@ -66,7 +66,7 @@ public class Bang {
                 if(choosenCard == -1){
                     break;
                 }
-                playCard(playerHand.get(choosenCard));
+                playerHand.get(choosenCard).use(activePlayer, pack, players);
             }
             activePlayer.setCards(playerHand);
 
@@ -99,36 +99,5 @@ public class Bang {
         return playerIn-1;
     }
 
-    private Player choosePlayer(Card c) {
-        for (int i = 0; i < this.players.length; i++) {
-            if(players[i].getLives()>0){
-                System.out.print(i+". " + players[i].getName() + " ");
-            }
-        }
-        int playerIn = ZKlavesnice.readInt("\nZadaj cislo hraca na ktoreho chces pouzit katu");
 
-        while(playerIn < 0 || playerIn > getNumberOfAlivePlayers() || this.players[playerIn].getLives() <= 0) {
-            playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
-        }
-        return this.players[playerIn];
-    }
-
-    private void playCard(Card c) {
-
-        if(c.getClass() == Vedla.class) {
-            System.out.println("card not playable");
-        }
-        else if(c.getClass() == Pivo.class || c.getClass() == Barrel.class || c.getClass() == Dostavnik.class || c.getClass() == Dynamit.class) {
-            this.activePlayer.playCard(c, this.activePlayer, this.pack);
-
-        }
-        else if(c.getClass() == BangCard.class || c.getClass() == Vazenie.class || c.getClass() == CatBalou.class) {
-            this.activePlayer.playCard(c, choosePlayer(c), this.pack);
-        }
-        else {
-            //indiani
-        }
-
-    }
-    
 }

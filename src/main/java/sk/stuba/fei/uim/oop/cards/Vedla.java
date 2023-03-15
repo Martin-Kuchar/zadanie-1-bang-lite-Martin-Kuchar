@@ -10,8 +10,8 @@ public class Vedla extends Card{
     }
 
     @Override
-    public void use(Player p, Pack d) {
-        p.removeCard(this, d);
+    public void use(Player p, Pack d, Player players[]) {
+        System.out.println("Card not playable");
     }
     
 }

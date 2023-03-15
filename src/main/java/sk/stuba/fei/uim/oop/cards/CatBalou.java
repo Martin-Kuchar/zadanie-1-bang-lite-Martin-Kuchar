@@ -15,7 +15,7 @@ public class CatBalou extends Card {
     }
 
     @Override
-    public void use(Player p, Pack d) {
+    public void use(Player p, Pack d, Player players[]) {
         int odhod = ZKlavesnice.readInt("chces odhodit zo stola alebo z ruky?(zadaj 0 pre stol alebo 1 pre ruku)");
 
         if(odhod == 1) {

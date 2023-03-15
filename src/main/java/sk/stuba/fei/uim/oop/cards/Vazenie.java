@@ -10,7 +10,8 @@ public class Vazenie extends Card {
     }
 
     @Override
-    public void use(Player p, Pack d){
-        p.setJail(this);
+    public void use(Player p, Pack d, Player players[]){
+        Player target = choosePlayer(p, players);
+        target.setJail(this);
     }    
 }

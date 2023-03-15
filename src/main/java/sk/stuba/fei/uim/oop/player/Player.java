@@ -12,16 +12,14 @@ public class Player {
     private final String name;
     private int lives;
     private Random rnd;
-    private boolean isOnTurn;
-    private boolean barrel;
-    private boolean dynamit;
-    private boolean vazenie;
+    private boolean isAlive;
     private ArrayList<Card> cards;//araylist pre karty na ruke
     private ArrayList<Card> tableCards;
 
     public Player(String name, Pack p) { //inicializacia hraca
         this.name = name;   //zapisanie mena
         this.lives = 4;     //zapisanie pociatocnich zivotov
+        this.isAlive = true;
         rnd = new Random();
 
         this.cards = new ArrayList<Card>();
@@ -48,7 +46,7 @@ public class Player {
         this.tableCards.add(c);
     }
 
-    public void escapeJail(Pack p, Player nextPlayer) {
+    public void escapeJail(Pack p, Player nextPlayer, Player players[]) {
         if(this.rnd.nextInt(4) == 0) {
             System.out.println("Yous succesfuly escaped jail!");
             for (Card c : tableCards) {
@@ -62,7 +60,7 @@ public class Player {
             System.out.println("You saddly didnt escape jail. Turn over.");
             for (Card c : tableCards) {
                 if(c instanceof Vazenie) {
-                    c.use(nextPlayer, p);
+                    c.use(nextPlayer, p, players);
                     this.tableCards.remove(c);
                 }
             }
@@ -82,7 +80,7 @@ public class Player {
         this.tableCards.add(c);
     }
 
-    public void detonateDynamite(Player nextPlayer, Pack p) {
+    public void detonateDynamite(Player nextPlayer, Pack p, Player players[]) {
         if(rnd.nextInt(8) == 0) {
             this.removeLives(3);
             for (Card c : tableCards) {
@@ -95,7 +93,7 @@ public class Player {
         else {
             for (Card c : tableCards) {
                 if(c instanceof Dynamit) {
-                    c.use(nextPlayer, p);
+                    c.use(nextPlayer, p, players);
                     this.tableCards.remove(c);
                 }
             }
@@ -112,10 +110,21 @@ public class Player {
 
     public void removeLives(int lives) { //odstranenie zivotov
         this.lives -= lives;
+
+        if(this.lives < 1) {
+            this.kill(null);
+        }
     }
 
-    public void toggleActive() {    //zmena active stavu
-        this.isOnTurn ^= true;
+    public boolean isAlive() {
+        return this.isAlive;
+    }
+
+    public void kill(Pack p) {    //zabitie hraca
+        this.isAlive = false;
+        for (Card c : this.cards) {
+            this.removeCard(c, p);
+        }
     }
 
     public void addCard(Pack p) {   //potiahnutie karty z balicku
@@ -125,6 +134,24 @@ public class Player {
     public Card removeCard(Card c, Pack p) { //vratenie karty do balicku
         p.addCard(c);
         return cards.remove(cards.indexOf(c));
+    }
+
+    public Card hasVedla() {
+        for(Card c : cards){
+            if(c instanceof Vedla) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public Card hasBang() {
+        for(Card c : cards){
+            if(c instanceof BangCard) {
+                return c;
+            }
+        }
+        return null;
     }
 
     public boolean hasCard(Class<?> c) { //zistenie ci ma hrac kartu podla druhu karty
@@ -142,7 +169,7 @@ public class Player {
                 return i;
             }
         }
-        return this.cards.get(-1);
+        return null;
     }
 
     public ArrayList<Card> getCards() { //return vsetkich kariet
@@ -153,15 +180,8 @@ public class Player {
         this.cards = c;
     }
 
-    private void placeCard(Card c, Player p, Pack d) { //polozenie karty pred seba
-        this.tableCards.add(c);
-        this.cards.remove(c); 
-        c.use(p, d);
-    }
-
-    public void playCard(Card c, Player p, Pack d) {    //zahranie karty
-        c.use(p, d);
-        this.removeCard(c, d);
-    }
-
+    //public void playCard(Card c, Pack d, Player players[]) {    //zahranie karty
+    //    c.use(this, d, players);
+    //    this.removeCard(c, d);
+    //}
 }
