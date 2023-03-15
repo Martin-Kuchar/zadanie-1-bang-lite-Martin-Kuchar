@@ -34,7 +34,6 @@ public class Bang {
         System.out.println("Game has started");
         
         int activeCount = -1;   //index aktivneho hraca
-        int playerIn = -1;        //input hraca
         ArrayList<Card> playerHand = new ArrayList<Card>();
         int choosenCard;
 
@@ -48,7 +47,7 @@ public class Bang {
                 activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack);
             }
             if(activePlayer.isInJail()) {
-                activePlayer.escapeJail(pack);
+                activePlayer.escapeJail(pack, players[incrementPlyer(activeCount)]);
                 continue;
             }
             activePlayer.addCard(pack);    //tah dvoch kariet
@@ -70,7 +69,6 @@ public class Bang {
                 playCard(playerHand.get(choosenCard));
             }
             activePlayer.setCards(playerHand);
-            playerIn = -1;
 
         }
     }

@@ -11,6 +11,6 @@ public class Dynamit extends Card {
 
     @Override
     public void use(Player p, Pack d){
-        p.setDynamite(true);
+        p.setDynamite(this);
     }    
 }

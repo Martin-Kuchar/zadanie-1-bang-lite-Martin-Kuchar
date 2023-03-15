@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.cards;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import sk.stuba.fei.uim.oop.pack.Pack;

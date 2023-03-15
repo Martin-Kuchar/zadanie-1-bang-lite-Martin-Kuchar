@@ -36,57 +36,67 @@ public class Player {
     }
 
     public boolean isInJail() {
-        return this.vazenie;
+        for (Card c : this.tableCards) {
+            if(c instanceof Vazenie) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setJail(boolean b) {
-        this.vazenie = b;
+    public void setJail(Card c) {
+        this.tableCards.add(c);
     }
 
-    public void escapeJail(Pack p) {
+    public void escapeJail(Pack p, Player nextPlayer) {
         if(this.rnd.nextInt(4) == 0) {
             System.out.println("Yous succesfuly escaped jail!");
+            for (Card c : tableCards) {
+                if(c instanceof Vazenie) {
+                    p.addCard(c);
+                    this.tableCards.remove(c);
+                }
+            }
         }
         else{
             System.out.println("You saddly didnt escape jail. Turn over.");
-        }
-        for (Card c : tableCards) {
-            if(c.getName() == "Väzenie") {
-                this.cards.add(c);
-                this.tableCards.remove(c);
-                removeCard(c, p);
+            for (Card c : tableCards) {
+                if(c instanceof Vazenie) {
+                    c.use(nextPlayer, p);
+                    this.tableCards.remove(c);
+                }
             }
         }
-        setJail(false);
     }
     
     public boolean hasDynamite() {
-        return this.dynamit;
+        for (Card c : this.tableCards) {
+            if(c instanceof Dynamit) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void setDynamite(boolean b) {
-        this.dynamit = b;
+    public void setDynamite(Card c) {
+        this.tableCards.add(c);
     }
 
     public void detonateDynamite(Player nextPlayer, Pack p) {
         if(rnd.nextInt(8) == 0) {
             this.removeLives(3);
             for (Card c : tableCards) {
-                if(c.getName() == "Dynamit") {
-                    this.cards.add(c);
+                if(c instanceof Dynamit) {
+                    p.addCard(c);
                     this.tableCards.remove(c);
-                    removeCard(c, p);
                 }
             }
         }
         else {
-            this.setDynamite(false);
             for (Card c : tableCards) {
-                if(c.getName() == "Dynamit") {
-                    nextPlayer.playCard(c, nextPlayer, p);
-                    this.cards.add(c);
+                if(c instanceof Dynamit) {
+                    c.use(nextPlayer, p);
                     this.tableCards.remove(c);
-                    removeCard(c, p);
                 }
             }
         }
@@ -150,14 +160,8 @@ public class Player {
     }
 
     public void playCard(Card c, Player p, Pack d) {    //zahranie karty
-        if(c.getClass() == Dynamit.class || c.getClass() == Barrel.class || c.getClass() == Vazenie.class) {
-            placeCard(c, p, d);
-        }
-        else {
-            c.use(p, d);
-            this.removeCard(c, d);
-        }
+        c.use(p, d);
+        this.removeCard(c, d);
     }
-    
 
 }
