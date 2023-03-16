@@ -13,13 +13,19 @@ public class BangCard extends Card{
     public void use(Player p, Pack d, Player players[]) {
         
         Player target = choosePlayer(p, players);
+        Card c = target.hasBarrel();
         Card v = target.hasVedla();
-        if(v != null) {
+
+        if(c != null && target.checkBarrel() == true) {
+            target.removeBarrel(c, d);
+        }
+        else if(v != null) {
+            System.out.println(target.getName() + " pouzil vedla!");
             target.removeCard(v, d);
         }
         else{
             target.removeLives(1);
         }
-        p.removeCard(v, d);
+        p.removeCard(this, d);
     }
 }

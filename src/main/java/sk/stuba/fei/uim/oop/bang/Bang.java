@@ -43,7 +43,7 @@ public class Bang {
             playerHand = activePlayer.getCards();
 
             //vykonanie efektovich kariet
-            if(activePlayer.hasDynamite()) {
+            if(activePlayer.hasDynamite() != null) {
                 activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack, this.players);
             }
             if(activePlayer.isInJail()) {

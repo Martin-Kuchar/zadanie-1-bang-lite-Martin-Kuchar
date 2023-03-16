@@ -67,13 +67,13 @@ public class Player {
         }
     }
     
-    public boolean hasDynamite() {
+    public Card hasDynamite() {
         for (Card c : this.tableCards) {
             if(c instanceof Dynamit) {
-                return true;
+                return c;
             }
         }
-        return false;
+        return null;
     }
 
     public void setDynamite(Card c) {
@@ -98,6 +98,31 @@ public class Player {
                 }
             }
         }
+    }
+
+    public Card hasBarrel() {
+        for (Card c : this.tableCards) {
+            if(c instanceof Barrel) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public void setBarrel(Card c) {
+        this.tableCards.add(c);
+    }
+
+    public void removeBarrel(Card c, Pack d) {
+        this.tableCards.remove(c);
+        d.addCard(c);
+    }
+    
+    public boolean checkBarrel() {
+        if(this.rnd.nextInt(3) == 0) {
+            return true;
+        }
+        return false;
     }
 
     public int getLives() { //ziskanie poctu zivotov

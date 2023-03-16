@@ -13,5 +13,6 @@ public class Vazenie extends Card {
     public void use(Player p, Pack d, Player players[]){
         Player target = choosePlayer(p, players);
         target.setJail(this);
+        p.removeCard(this, d);
     }    
 }
