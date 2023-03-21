@@ -11,6 +11,12 @@ public class Dynamit extends Card {
 
     @Override
     public void use(Player p, Pack d, Player players[]){
-        p.setDynamite(this);
+        if(p.hasDynamite() == null) {
+            p.setDynamite(this);
+            p.removeCard(this, d);
+        }
+        else {
+            System.out.println("Player already has dynamite");
+        }
     }    
 }

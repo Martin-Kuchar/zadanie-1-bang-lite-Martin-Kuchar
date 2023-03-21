@@ -19,7 +19,7 @@ public class Indiani extends Card {
                     target.removeCard(b, d);
                 }
                 else{
-                    target.removeLives(1);
+                    target.removeLives(1, d);
                 }
             }
         }

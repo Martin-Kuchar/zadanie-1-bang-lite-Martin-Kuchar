@@ -44,22 +44,28 @@ public class Bang {
 
             //vykonanie efektovich kariet
             if(activePlayer.hasDynamite() != null) {
-                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack, this.players);
+                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack);
+                if(activePlayer.getLives()<=0) {
+                    continue;
+                }
             }
-            if(activePlayer.isInJail()) {
-                activePlayer.escapeJail(pack, players[incrementPlyer(activeCount)], this.players);
-                continue;
+            if(activePlayer.hasJail() != null) {
+                if(!activePlayer.escapeJail(pack)) {
+                    continue;
+                }
             }
             activePlayer.addCard(pack);    //tah dvoch kariet
             activePlayer.addCard(pack);
 
 
             System.out.println("Player " + activePlayer.getName() + " is on turn!");
-            System.out.println("Tvoje zivoty su:  " + activePlayer.getLives());
+            System.out.println("You have " + activePlayer.getLives() + " lives");
 
             while(true) {
-                System.out.println("Tvoje karty na ruke su: ");
-                playerHand.forEach((c) -> System.out.print(c.getName() + " "));
+                System.out.println("Your cards on hand are: ");
+                for (int i = 0; i < playerHand.size(); i++) {
+                    System.out.print(i+1 + ". " + playerHand.get(i).getName() + ", ");
+                }
                 System.out.println();
 
                 choosenCard = chooseCard(playerHand);
@@ -74,10 +80,16 @@ public class Bang {
     }
 
     private int incrementPlyer(int i) {
-        i++; //inkrement aktivneho hraca a osetrenie mrtvich hracov
-            if(i >= getNumberOfAlivePlayers()){
+        i++;
+        if(i >= this.players.length){
+            i = 0;
+        }
+        while(this.players[i].isAlive() == false) {
+            i++;
+            if(i >= this.players.length){
                 i = 0;
             }
+        }
         return i;
     }
 
@@ -97,6 +109,14 @@ public class Bang {
             playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
         }
         return playerIn-1;
+    }
+
+    private void printWinner() {
+        for (Player player : players) {
+            if(player.isAlive()) {
+                System.out.println("CONGRATULATION\nPlayer " + player.getName() + " won the game");
+            }
+        }
     }
 
 

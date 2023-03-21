@@ -12,7 +12,12 @@ public class Vazenie extends Card {
     @Override
     public void use(Player p, Pack d, Player players[]){
         Player target = choosePlayer(p, players);
-        target.setJail(this);
-        p.removeCard(this, d);
+        if(target.hasJail() == null){
+            target.setJail(this);
+            p.removeCard(this, d);
+        }
+        else {
+            System.out.println("Player already is in jail");
+        }
     }    
 }

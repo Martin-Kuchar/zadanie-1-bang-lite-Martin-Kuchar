@@ -19,7 +19,7 @@ public abstract class Card {
             }
         }
         int playerIn = ZKlavesnice.readInt("\nZadaj cislo hraca na ktoreho chces pouzit katu");
-        while(playerIn < 0 || playerIn >= players.length || players[playerIn].isAlive() == false) {
+        while(playerIn < 0 || playerIn >= players.length || players[playerIn].isAlive() == false || players[playerIn] == curr) {
             playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
         }
         return players[playerIn];

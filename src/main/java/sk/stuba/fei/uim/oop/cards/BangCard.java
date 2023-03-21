@@ -24,7 +24,7 @@ public class BangCard extends Card{
             target.removeCard(v, d);
         }
         else{
-            target.removeLives(1);
+            target.removeLives(1, d);
         }
         p.removeCard(this, d);
     }
