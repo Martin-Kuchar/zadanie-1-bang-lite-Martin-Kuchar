@@ -73,10 +73,12 @@ public class Player {
 
     public void detonateDynamite(Player nextPlayer, Pack p) {
         if(rnd.nextInt(8) == 0) {
+            System.out.println("Dynamite exploeded in fornt " + this.getName() + " you loose 3 lives!");
             this.removeLives(3, p);
             p.addCard(this.hasDynamite());
         }
         else {
+            System.out.println("Dynamite didnt explode passing to:" + nextPlayer.getName() + "!");
             nextPlayer.setDynamite(this.hasDynamite());
         }
         this.tableCards.remove(this.hasDynamite());
@@ -102,6 +104,7 @@ public class Player {
     
     public boolean checkBarrel() {
         if(this.rnd.nextInt(3) == 0) {
+            System.out.println(this.getName() + " ducked behind barrel!");
             return true;
         }
         return false;
@@ -136,12 +139,22 @@ public class Player {
     }
 
     public void addCard(Pack p) {   //potiahnutie karty z balicku
-        this.cards.add(p.drawCard());
+        if(!p.isEmpty()){
+            this.cards.add(p.drawCard());
+        }
+        else {
+            System.out.println("You ran out of cards in deck!");
+        }
     }
 
     public Card removeCard(Card c, Pack p) { //vratenie karty do balicku
         p.addCard(c);
         return cards.remove(cards.indexOf(c));
+    }
+
+    public Card removeTableCard(Card c, Pack p) { //vratenie karty do balicku
+        p.addCard(c);
+        return tableCards.remove(cards.indexOf(c));
     }
 
     public Card hasVedla() {
@@ -162,29 +175,18 @@ public class Player {
         return null;
     }
 
-    public boolean hasCard(Class<?> c) { //zistenie ci ma hrac kartu podla druhu karty
-        for(Card i : cards){
-            if(i.getClass() == c) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Card getCardByType(Class<?> c) { //ziskanie karty podla druhu
-        for(Card i : cards){
-            if(i.getClass() == c) {
-                return i;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<Card> getCards() { //return vsetkich kariet
+    public ArrayList<Card> getCards() {
         return this.cards;
     }
 
-    public void setCards(ArrayList<Card> c) {   //nastavenie kriet
+    public void setCards(ArrayList<Card> c) {
         this.cards = c;
+    }
+
+    public ArrayList<Card> getTable() {
+        return this.tableCards;
+    }
+    public void setTable(ArrayList<Card> c) {
+        this.tableCards = c;
     }
 }

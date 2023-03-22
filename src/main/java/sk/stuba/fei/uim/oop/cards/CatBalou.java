@@ -14,15 +14,36 @@ public class CatBalou extends Card {
         this.name = "Cat Balou";
     }
 
+    public void rmHand(Player target, Pack d) {
+        target.removeCard(target.getCards().get(rnd.nextInt(target.getCards().size())), d);
+    }
+
+    public void rmTable(Player target, Pack d) {
+        target.removeCard(target.getCards().get(rnd.nextInt(target.getCards().size())), d);
+    }
+
     @Override
     public void use(Player p, Pack d, Player players[]) {
-        int odhod = ZKlavesnice.readInt("chces odhodit zo stola alebo z ruky?(zadaj 0 pre stol alebo 1 pre ruku)");
+        
+        Player target = this.choosePlayer(p, players);
+        if(target.getCards().size() != 0 && target.getTable().size() != 0) {
+            int odhod = ZKlavesnice.readInt("chces odhodit zo stola alebo z ruky?(zadaj 0 pre stol alebo 1 pre ruku)");
+            
+            while (odhod != 0 || odhod != 1) {
+                odhod = ZKlavesnice.readInt("chces odhodit zo stola alebo z ruky?(zadaj 0 pre stol alebo 1 pre ruku)");
+            }
+            if(odhod == 1) {
+                this.rmHand(target, d);
+            }
+            else {
+                this.rmTable(target, d);
+            }
+            p.removeCard(this, d);
 
-        if(odhod == 1) {
-            p.removeCard(p.getCards().get(rnd.nextInt(p.getCards().size())), d);
         }
+
         else {
-            //odstran jail/dynamit/barrel
+            System.out.println("Player " + target.getName() + " do not have any cards");
         }
         
     }    

@@ -61,7 +61,7 @@ public class Bang {
             System.out.println("Player " + activePlayer.getName() + " is on turn!");
             System.out.println("You have " + activePlayer.getLives() + " lives");
 
-            while(true) {
+            while(getNumberOfAlivePlayers() > 1) {
                 System.out.println("Your cards on hand are: ");
                 for (int i = 0; i < playerHand.size(); i++) {
                     System.out.print(i+1 + ". " + playerHand.get(i).getName() + ", ");
@@ -77,6 +77,7 @@ public class Bang {
             activePlayer.setCards(playerHand);
 
         }
+        this.printWinner();
     }
 
     private int incrementPlyer(int i) {
@@ -114,7 +115,7 @@ public class Bang {
     private void printWinner() {
         for (Player player : players) {
             if(player.isAlive()) {
-                System.out.println("CONGRATULATION\nPlayer " + player.getName() + " won the game");
+                System.out.println("CONGRATULATION! Player " + player.getName() + " won the game");
             }
         }
     }

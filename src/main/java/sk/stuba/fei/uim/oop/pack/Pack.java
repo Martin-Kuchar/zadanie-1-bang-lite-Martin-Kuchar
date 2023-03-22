@@ -42,12 +42,15 @@ public class Pack {
         shuffleDeck();
     }
 
-    public void removeCard(Card c) {
-        this.cards.remove(c);
-    }
-
     public void addCard(Card c) {
         this.cards.add(c);
+    }
+
+    public boolean isEmpty() {
+        if(this.cards.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public Card drawCard() {

@@ -20,7 +20,7 @@ public class BangCard extends Card{
             target.removeBarrel(c, d);
         }
         else if(v != null) {
-            System.out.println(target.getName() + " pouzil vedla!");
+            System.out.println(target.getName() + " used miss card!");
             target.removeCard(v, d);
         }
         else{

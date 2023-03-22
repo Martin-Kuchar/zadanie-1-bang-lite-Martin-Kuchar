@@ -18,9 +18,9 @@ public abstract class Card {
                 System.out.print(i+". " + players[i].getName() + " ");
             }
         }
-        int playerIn = ZKlavesnice.readInt("\nZadaj cislo hraca na ktoreho chces pouzit katu");
+        int playerIn = ZKlavesnice.readInt("\nEnter number of player to play card on");
         while(playerIn < 0 || playerIn >= players.length || players[playerIn].isAlive() == false || players[playerIn] == curr) {
-            playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
+            playerIn = ZKlavesnice.readInt("Not in range. Try agains");
         }
         return players[playerIn];
     }
