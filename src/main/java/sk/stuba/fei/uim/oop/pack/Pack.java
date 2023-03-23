@@ -11,8 +11,7 @@ public class Pack {
     private ArrayList<Card> cards;
 
     public Pack() {
-        cards = new ArrayList<Card>();  //inicializacia pola kariet
-        //pridanie kariet do pola
+        cards = new ArrayList<Card>();
         this.cards.add(new Dynamit());
         for(int i = 0; i < 2; i++){
             this.cards.add(new Barrel());
