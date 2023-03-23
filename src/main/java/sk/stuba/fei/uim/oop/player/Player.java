@@ -78,7 +78,7 @@ public class Player {
             p.addCard(this.hasDynamite());
         }
         else {
-            System.out.println("Dynamite didnt explode passing to:" + nextPlayer.getName() + "!");
+            System.out.println("Dynamite didnt explode passing to player " + nextPlayer.getName() + "!");
             nextPlayer.setDynamite(this.hasDynamite());
         }
         this.tableCards.remove(this.hasDynamite());
@@ -110,15 +110,15 @@ public class Player {
         return false;
     }
 
-    public int getLives() { //ziskanie poctu zivotov
+    public int getLives() {
         return this.lives;
     }
 
-    public void addLives(int lives) {   //pridanie zivotov
+    public void addLives(int lives) {
         this.lives += lives;
     }
 
-    public void removeLives(int lives, Pack p) { //odstranenie zivotov
+    public void removeLives(int lives, Pack p) {
         this.lives -= lives;
         if (this.lives <=0) {
             kill(p);
@@ -129,7 +129,7 @@ public class Player {
         return this.isAlive;
     }
 
-    public void kill(Pack p) {    //zabitie hraca
+    public void kill(Pack p) {
         System.out.println("Player " + this.getName() + " has died");
         this.isAlive = false;
         for (Card c : this.cards) {
@@ -138,7 +138,7 @@ public class Player {
         this.cards.removeAll(cards);
     }
 
-    public void addCard(Pack p) {   //potiahnutie karty z balicku
+    public void addCard(Pack p) {
         if(!p.isEmpty()){
             this.cards.add(p.drawCard());
         }
@@ -147,14 +147,14 @@ public class Player {
         }
     }
 
-    public Card removeCard(Card c, Pack p) { //vratenie karty do balicku
+    public Card removeCard(Card c, Pack p) {
         p.addCard(c);
         return cards.remove(cards.indexOf(c));
     }
 
-    public Card removeTableCard(Card c, Pack p) { //vratenie karty do balicku
+    public Card removeTableCard(Card c, Pack p) {
         p.addCard(c);
-        return tableCards.remove(cards.indexOf(c));
+        return tableCards.remove(tableCards.indexOf(c));
     }
 
     public Card hasVedla() {

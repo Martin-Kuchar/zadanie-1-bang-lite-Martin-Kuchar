@@ -15,36 +15,38 @@ public class Bang {
     public Bang(){
 
         this.pack = new Pack();
-
-        System.out.println("Welcome to Bang Lite"); //welcome message
-        int playerNum = ZKlavesnice.readInt("Enter number of players(2-4): ");
-        while(playerNum > 4 || playerNum < 2){
+        int playerNum = 0;
+        System.out.println("Welcome to Bang Lite");
+        do {
             playerNum = ZKlavesnice.readInt("Enter number of players(2-4): ");
-        }
+        } while (playerNum > 4 || playerNum < 2);
+        
         this.players = new Player[playerNum];
 
         for (int i = 0; i < playerNum; i++) {
-            this.players[i] = new Player(ZKlavesnice.readString("Enter name of player " + (i + 1) + ": "), pack); //inicializacia hracov
+            this.players[i] = new Player(ZKlavesnice.readString("Enter name of player " + (i + 1) + ": "), pack);
         }
-
+        
         this.startGame();
     }
 
     private void startGame(){
-        System.out.println("Game has started");
+        System.out.println("---Game has started---");
         
-        int activeCount = -1;   //index aktivneho hraca
+        int activeCount = -1;
         ArrayList<Card> playerHand = new ArrayList<Card>();
         int choosenCard;
 
-        while(getNumberOfAlivePlayers() > 1){   //loop pre hru pokial zije viac ako 1 hrac
+        while(getNumberOfAlivePlayers() > 1){
             activeCount = incrementPlyer(activeCount);
             activePlayer = players[activeCount];
             playerHand = activePlayer.getCards();
 
-            //vykonanie efektovich kariet
+            System.out.println("\n\n\n\nPlayer " + activePlayer.getName() + " is on turn!");
+            System.out.println("You have " + activePlayer.getLives() + " lives");
+
             if(activePlayer.hasDynamite() != null) {
-                activePlayer.detonateDynamite(players[incrementPlyer(activeCount)], pack);
+                activePlayer.detonateDynamite(players[decrementPlyer(activeCount)], pack);
                 if(activePlayer.getLives()<=0) {
                     continue;
                 }
@@ -54,12 +56,8 @@ public class Bang {
                     continue;
                 }
             }
-            activePlayer.addCard(pack);    //tah dvoch kariet
             activePlayer.addCard(pack);
-
-
-            System.out.println("Player " + activePlayer.getName() + " is on turn!");
-            System.out.println("You have " + activePlayer.getLives() + " lives");
+            activePlayer.addCard(pack);
 
             while(getNumberOfAlivePlayers() > 1) {
                 System.out.println("Your cards on hand are: ");
@@ -81,16 +79,23 @@ public class Bang {
     }
 
     private int incrementPlyer(int i) {
-        i++;
-        if(i >= this.players.length){
-            i = 0;
-        }
-        while(this.players[i].isAlive() == false) {
+        do {
             i++;
             if(i >= this.players.length){
                 i = 0;
             }
-        }
+        } while (this.players[i].isAlive() == false);
+        
+        return i;
+    }
+
+    private int decrementPlyer(int i) {
+        do {
+            i--;
+            if(i < 0){
+                i = this.players.length-1;
+            }
+        } while (this.players[i].isAlive() == false);
         return i;
     }
 
@@ -105,9 +110,9 @@ public class Bang {
     }
 
     private int chooseCard(ArrayList<Card> c){
-        int playerIn = ZKlavesnice.readInt("Zadaj cislo karty ktoru chces zahrat alebo 0 pre ukoncenie tahu: ");
+        int playerIn = ZKlavesnice.readInt("Enter Number of card to play or 0 to end round: ");
         while(playerIn < -1 || playerIn > c.size()) {
-            playerIn = ZKlavesnice.readInt("Netrafil si range skus znova");
+            playerIn = ZKlavesnice.readInt("Not in range");
         }
         return playerIn-1;
     }
@@ -115,10 +120,8 @@ public class Bang {
     private void printWinner() {
         for (Player player : players) {
             if(player.isAlive()) {
-                System.out.println("CONGRATULATION! Player " + player.getName() + " won the game");
+                System.out.println("\n\n\n\nCONGRATULATION! Player " + player.getName() + " won the game");
             }
         }
     }
-
-
 }
