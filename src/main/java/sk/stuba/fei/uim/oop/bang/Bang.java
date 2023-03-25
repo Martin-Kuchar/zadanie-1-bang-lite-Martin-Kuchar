@@ -43,8 +43,7 @@ public class Bang {
             playerHand = activePlayer.getCards();
 
             System.out.println("\n\n\n\nPlayer " + activePlayer.getName() + " is on turn!");
-            System.out.println("You have " + activePlayer.getLives() + " lives");
-
+            
             if(activePlayer.hasDynamite() != null) {
                 activePlayer.detonateDynamite(players[decrementPlyer(activeCount)], pack);
                 if(activePlayer.getLives()<=0) {
@@ -56,6 +55,7 @@ public class Bang {
                     continue;
                 }
             }
+            System.out.println("You have " + activePlayer.getLives() + " lives");
             activePlayer.addCard(pack);
             activePlayer.addCard(pack);
 
@@ -72,7 +72,7 @@ public class Bang {
                 }
                 playerHand.get(choosenCard).use(activePlayer, pack, players);
             }
-            activePlayer.setCards(playerHand);
+            activePlayer.removeExcessCards(pack);
 
         }
         this.printWinner();
@@ -120,7 +120,7 @@ public class Bang {
     private void printWinner() {
         for (Player player : players) {
             if(player.isAlive()) {
-                System.out.println("\n\n\n\nCONGRATULATION! Player " + player.getName() + " won the game");
+                System.out.println("\n\n\n\nCONGRATULATION! Player " + player.getName() + " won the game!");
             }
         }
     }

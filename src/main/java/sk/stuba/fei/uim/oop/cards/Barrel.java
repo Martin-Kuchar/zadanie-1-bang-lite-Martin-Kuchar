@@ -12,7 +12,7 @@ public class Barrel extends Card {
     @Override
     public void use(Player p, Pack d, Player players[]) {
         if(p.hasBarrel() == null){
-            p.setBarrel(this);
+            p.placeCard(this);
             p.removeCard(this, d);
         }
         else {

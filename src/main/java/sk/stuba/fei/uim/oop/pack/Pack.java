@@ -12,33 +12,32 @@ public class Pack {
 
     public Pack() {
         cards = new ArrayList<Card>();
-        this.cards.add(new Dynamit());
+        this.cards.add(new Dynamite());
         for(int i = 0; i < 2; i++){
             this.cards.add(new Barrel());
         }
         for(int i = 0; i < 3; i++){
-            this.cards.add(new Vazenie());
+            this.cards.add(new Jail());
         }
         for(int i = 0; i < 8; i++){
-            this.cards.add(new Pivo());
+            this.cards.add(new Beer());
         }
         for(int i = 0; i < 6; i++){
             this.cards.add(new CatBalou());
         }
         for(int i = 0; i < 4; i++){
-            this.cards.add(new Dostavnik());
+            this.cards.add(new Stagecoach());
         }
         for(int i = 0; i < 2; i++){
-            this.cards.add(new Indiani());
+            this.cards.add(new Indians());
         }
         for(int i = 0; i < 30; i++){
             this.cards.add(new BangCard());
         }
         for(int i = 0; i < 15; i++){
-            this.cards.add(new Vedla());
+            this.cards.add(new Missed());
         }
-
-        shuffleDeck();
+        Collections.shuffle(this.cards);
     }
 
     public void addCard(Card c) {
@@ -54,9 +53,5 @@ public class Pack {
 
     public Card drawCard() {
         return this.cards.remove(0);
-    }
-
-    public void shuffleDeck() {
-        Collections.shuffle(this.cards);
     }
 }

@@ -13,12 +13,12 @@ public class Player {
     private int lives;
     private Random rnd;
     private boolean isAlive;
-    private ArrayList<Card> cards;//araylist pre karty na ruke
+    private ArrayList<Card> cards;
     private ArrayList<Card> tableCards;
 
-    public Player(String name, Pack p) { //inicializacia hraca
-        this.name = name;   //zapisanie mena
-        this.lives = 4;     //zapisanie pociatocnich zivotov
+    public Player(String name, Pack p) {
+        this.name = name;
+        this.lives = 4;
         this.isAlive = true;
         rnd = new Random();
 
@@ -35,15 +35,11 @@ public class Player {
 
     public Card hasJail() {
         for (Card c : this.tableCards) {
-            if(c instanceof Vazenie) {
+            if(c instanceof Jail) {
                 return c;
             }
         }
         return null;
-    }
-
-    public void setJail(Card c) {
-        this.tableCards.add(c);
     }
 
     public boolean escapeJail(Pack p) {
@@ -60,15 +56,11 @@ public class Player {
     
     public Card hasDynamite() {
         for (Card c : this.tableCards) {
-            if(c instanceof Dynamit) {
+            if(c instanceof Dynamite) {
                 return c;
             }
         }
         return null;
-    }
-
-    public void setDynamite(Card c) {
-        this.tableCards.add(c);
     }
 
     public void detonateDynamite(Player nextPlayer, Pack p) {
@@ -79,7 +71,7 @@ public class Player {
         }
         else {
             System.out.println("Dynamite didnt explode passing to player " + nextPlayer.getName() + "!");
-            nextPlayer.setDynamite(this.hasDynamite());
+            nextPlayer.placeCard(this.hasDynamite());
         }
         this.tableCards.remove(this.hasDynamite());
     }
@@ -92,18 +84,9 @@ public class Player {
         }
         return null;
     }
-
-    public void setBarrel(Card c) {
-        this.tableCards.add(c);
-    }
-
-    public void removeBarrel(Card c, Pack d) {
-        this.tableCards.remove(c);
-        d.addCard(c);
-    }
     
     public boolean checkBarrel() {
-        if(this.rnd.nextInt(3) == 0) {
+        if(this.rnd.nextInt(4) == 0) {
             System.out.println(this.getName() + " ducked behind barrel!");
             return true;
         }
@@ -130,7 +113,7 @@ public class Player {
     }
 
     public void kill(Pack p) {
-        System.out.println("Player " + this.getName() + " has died");
+        System.out.println("!!!Player " + this.getName() + " has died!!!");
         this.isAlive = false;
         for (Card c : this.cards) {
             p.addCard(c);
@@ -147,9 +130,20 @@ public class Player {
         }
     }
 
+    public void placeCard(Card c) {
+        this.tableCards.add(c);
+    }
+
     public Card removeCard(Card c, Pack p) {
         p.addCard(c);
         return cards.remove(cards.indexOf(c));
+    }
+
+    public void removeExcessCards(Pack p) {
+        while(this.cards.size() > this.getLives()) {
+            p.addCard(this.cards.remove(rnd.nextInt(this.cards.size())));
+            this.cards.remove(rnd.nextInt(this.cards.size()));
+        }
     }
 
     public Card removeTableCard(Card c, Pack p) {
@@ -159,7 +153,7 @@ public class Player {
 
     public Card hasVedla() {
         for(Card c : cards){
-            if(c instanceof Vedla) {
+            if(c instanceof Missed) {
                 return c;
             }
         }
@@ -179,14 +173,7 @@ public class Player {
         return this.cards;
     }
 
-    public void setCards(ArrayList<Card> c) {
-        this.cards = c;
-    }
-
     public ArrayList<Card> getTable() {
         return this.tableCards;
-    }
-    public void setTable(ArrayList<Card> c) {
-        this.tableCards = c;
     }
 }

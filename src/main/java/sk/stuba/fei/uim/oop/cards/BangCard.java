@@ -17,7 +17,7 @@ public class BangCard extends Card{
         Card v = target.hasVedla();
 
         if(c != null && target.checkBarrel() == true) {
-            target.removeBarrel(c, d);
+            target.removeTableCard(c, d);
         }
         else if(v != null) {
             System.out.println(target.getName() + " used miss card!");

@@ -3,10 +3,10 @@ package sk.stuba.fei.uim.oop.cards;
 import sk.stuba.fei.uim.oop.pack.Pack;
 import sk.stuba.fei.uim.oop.player.Player;
 
-public class Pivo extends Card {
+public class Beer extends Card {
 
-    public Pivo(){
-        this.name = "Pivo";
+    public Beer(){
+        this.name = "Beer";
     }
     @Override
     public void use(Player p, Pack d, Player players[]){

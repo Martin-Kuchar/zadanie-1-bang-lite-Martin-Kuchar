@@ -3,10 +3,10 @@ package sk.stuba.fei.uim.oop.cards;
 import sk.stuba.fei.uim.oop.pack.Pack;
 import sk.stuba.fei.uim.oop.player.Player;
 
-public class Indiani extends Card {
+public class Indians extends Card {
 
-    public Indiani() {
-        this.name = "Indiani";
+    public Indians() {
+        this.name = "Indians";
     }
 
     @Override
