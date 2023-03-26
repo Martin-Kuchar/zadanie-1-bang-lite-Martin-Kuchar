@@ -23,11 +23,10 @@ public class CatBalou extends Card {
     }
 
     @Override
-    public void use(Player p, Pack d, Player players[]) {
-        
+    public void use(Player p, Pack d, Player players[]) {      
         Player target = this.choosePlayer(p, players);
+        
         if(target.getCards().size() != 0 && target.getTable().size() != 0) {
-            
             int odhod = 0;
             do {
                 odhod = ZKlavesnice.readInt("do you want to discrad card from hand or table? (0 for hand 1 for table)");
@@ -41,17 +40,16 @@ public class CatBalou extends Card {
             }
             p.removeCard(this, d);
         }
-
         else if(target.getCards().size() != 0 && target.getTable().size() == 0) {
+            System.out.println("Player " + target.getName() + " had cards only on hand");
             this.rmHand(target, d);
             p.removeCard(this, d);
         }
-
         else if(target.getCards().size() == 0 && target.getTable().size() != 0) {
+            System.out.println("Player " + target.getName() + " had cards only on table");
             this.rmTable(target, d);
             p.removeCard(this, d);
         }
-
         else {
             System.out.println("Player " + target.getName() + " do not have any cards");
         }

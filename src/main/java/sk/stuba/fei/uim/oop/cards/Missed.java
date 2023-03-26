@@ -12,6 +12,5 @@ public class Missed extends Card{
     @Override
     public void use(Player p, Pack d, Player players[]) {
         System.out.println("Card not playable");
-    }
-    
+    }  
 }

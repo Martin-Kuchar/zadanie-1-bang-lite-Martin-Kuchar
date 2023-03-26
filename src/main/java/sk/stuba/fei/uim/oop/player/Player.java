@@ -20,10 +20,10 @@ public class Player {
         this.name = name;
         this.lives = 4;
         this.isAlive = true;
-        rnd = new Random();
-
+        this.rnd = new Random();
         this.cards = new ArrayList<Card>();
         this.tableCards = new ArrayList<Card>();
+
         for(int i = 0; i < 4; i++){
             addCard(p);
         }
@@ -136,7 +136,7 @@ public class Player {
 
     public Card removeCard(Card c, Pack p) {
         p.addCard(c);
-        return cards.remove(cards.indexOf(c));
+        return this.cards.remove(cards.indexOf(c));
     }
 
     public void removeExcessCards(Pack p) {
@@ -148,11 +148,11 @@ public class Player {
 
     public Card removeTableCard(Card c, Pack p) {
         p.addCard(c);
-        return tableCards.remove(tableCards.indexOf(c));
+        return this.tableCards.remove(tableCards.indexOf(c));
     }
 
     public Card hasVedla() {
-        for(Card c : cards){
+        for(Card c : this.cards){
             if(c instanceof Missed) {
                 return c;
             }
@@ -161,7 +161,7 @@ public class Player {
     }
 
     public Card hasBang() {
-        for(Card c : cards){
+        for(Card c : this.cards){
             if(c instanceof BangCard) {
                 return c;
             }

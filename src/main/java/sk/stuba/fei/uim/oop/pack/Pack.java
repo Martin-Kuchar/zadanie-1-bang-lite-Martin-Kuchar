@@ -13,6 +13,7 @@ public class Pack {
     public Pack() {
         cards = new ArrayList<Card>();
         this.cards.add(new Dynamite());
+
         for(int i = 0; i < 2; i++){
             this.cards.add(new Barrel());
         }
@@ -37,6 +38,7 @@ public class Pack {
         for(int i = 0; i < 15; i++){
             this.cards.add(new Missed());
         }
+        
         Collections.shuffle(this.cards);
     }
 

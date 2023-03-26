@@ -12,6 +12,7 @@ public class Jail extends Card {
     @Override
     public void use(Player p, Pack d, Player players[]){
         Player target = choosePlayer(p, players);
+        
         if(target.hasJail() == null){
             target.placeCard(this);
             p.removeCard(this, d);

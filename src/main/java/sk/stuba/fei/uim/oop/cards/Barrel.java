@@ -19,5 +19,4 @@ public class Barrel extends Card {
             System.out.println("Player already has barrel");
         }
     }
-    
 }

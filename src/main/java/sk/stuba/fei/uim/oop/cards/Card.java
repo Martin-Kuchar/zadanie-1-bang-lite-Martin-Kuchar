@@ -26,6 +26,4 @@ public abstract class Card {
     }
 
     public abstract void use(Player p, Pack d, Player players[]);
-
-    
 }

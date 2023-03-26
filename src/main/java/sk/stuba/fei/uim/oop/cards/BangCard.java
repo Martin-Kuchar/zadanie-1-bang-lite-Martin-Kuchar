@@ -11,7 +11,6 @@ public class BangCard extends Card{
 
     @Override
     public void use(Player p, Pack d, Player players[]) {
-        
         Player target = choosePlayer(p, players);
         Card c = target.hasBarrel();
         Card v = target.hasVedla();
