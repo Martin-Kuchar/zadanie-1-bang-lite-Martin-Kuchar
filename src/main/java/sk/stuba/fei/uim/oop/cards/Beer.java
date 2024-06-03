@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class Beer extends Card {
 
     public Beer(){
-        this.name = "Beer";
+        super("Beer");
     }
     @Override
     public void use(Player p, Pack d, Player players[]){

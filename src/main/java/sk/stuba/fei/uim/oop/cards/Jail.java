@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class Jail extends Card {
     
     public Jail() {
-        this.name = "Jail";
+        super("Jail");
     }
 
     @Override

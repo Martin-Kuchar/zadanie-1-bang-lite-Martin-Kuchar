@@ -11,6 +11,7 @@ public class Pack {
     private ArrayList<Card> cards;
 
     public Pack() {
+
         cards = new ArrayList<Card>();
         this.cards.add(new Dynamite());
 

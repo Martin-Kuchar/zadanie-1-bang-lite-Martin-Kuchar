@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class Indians extends Card {
 
     public Indians() {
-        this.name = "Indians";
+        super("Indians");
     }
 
     @Override

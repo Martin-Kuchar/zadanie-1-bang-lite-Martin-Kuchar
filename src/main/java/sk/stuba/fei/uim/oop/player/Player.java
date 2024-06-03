@@ -25,7 +25,7 @@ public class Player {
         this.tableCards = new ArrayList<Card>();
 
         for(int i = 0; i < 4; i++){
-            addCard(p);
+            this.addCard(p);
         }
     }
     

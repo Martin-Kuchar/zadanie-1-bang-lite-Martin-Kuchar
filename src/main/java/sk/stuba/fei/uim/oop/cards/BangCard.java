@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class BangCard extends Card{
 
     public BangCard() {
-        this.name = "Bang";
+        super("Bang");
     }
 
     @Override

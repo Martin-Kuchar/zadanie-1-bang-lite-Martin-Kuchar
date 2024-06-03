@@ -11,7 +11,7 @@ public class CatBalou extends Card {
     private Random rnd = new Random();
 
     public CatBalou() {
-        this.name = "Cat Balou";
+        super("Cat Balou");
     }
 
     public void rmHand(Player target, Pack d) {

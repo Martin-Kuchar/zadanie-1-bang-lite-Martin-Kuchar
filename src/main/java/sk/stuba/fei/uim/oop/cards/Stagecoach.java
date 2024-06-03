@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class Stagecoach extends Card {
     
     public Stagecoach() {
-        this.name = "Stagecoach";
+        super("Stagecoach");
     }
 
     @Override

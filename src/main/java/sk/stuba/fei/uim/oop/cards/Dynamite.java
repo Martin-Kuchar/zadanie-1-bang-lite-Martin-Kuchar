@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class Dynamite extends Card {
     
     public Dynamite() {
-        this.name = "Dynamite";
+        super("Dynamite");
     }
 
     @Override
